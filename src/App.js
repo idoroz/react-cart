@@ -224,7 +224,7 @@ class App extends Component {
 
 
      <Row>
-       <Col s={2} >
+       <Col s={3} >
   <ItemShelf
 
             shelf={this.state.shelf}
