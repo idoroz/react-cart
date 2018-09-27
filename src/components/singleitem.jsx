@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import { Collection, CollectionItem } from 'react-materialize'
+
+
 
  class singleitem extends Component {
 	render() {
@@ -7,11 +8,13 @@ import { Collection, CollectionItem } from 'react-materialize'
 		// console.log('singleitem', this.props)
 		return (
 		 
-<Collection >
-  <CollectionItem className="shelfItem" onClick = {() => this.props.onAdd(this.props)}>
+
+  <div className="shelfItem" onClick = {() => this.props.onAdd(this.props)}>
     {this.props.item}
-  </CollectionItem>
-  </Collection>
+ {/*   <div className = 'itemDetails'></div>*/}
+    {/*<img src="https://i.imgur.com/0hKPJOz.gif"	/>*/}
+  </div>
+
    
 		);
 	}

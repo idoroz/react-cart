@@ -78,26 +78,15 @@ class App extends Component {
         let counterId = item.id
         const totals = [...this.state.totals];
         const counters = this.state.counters.filter(counter => counter.id !== counterId);
-        let shelf = [...this.state.shelf]
-        shelf.push({
-            id: item.id,
-            item: item.item,
-            value: 1,
-            price: item.price,
-        })
 
         totals.totalitems = counters.reduce(getTotalItems, 0)
         totals.totalamount = counters.reduce(getTotalAmount, 0).toFixed(2)
-
-        let sortable = shelf.sort((a, b) => {
-            return a['id'] > b['id']
-        });
 
 
         this.setState({
             counters: counters,
             totals: totals,
-            shelf: shelf
+
         })
     }
 
@@ -127,13 +116,16 @@ class App extends Component {
 
     handleDecrement = (counter) => {
 
-        const counters = [...this.state.counters]
+        let counters = [...this.state.counters]
         const totals = [...this.state.totals];
         const currentCounter = counter.id;
         for (let i = 0; i < counters.length; i++) {
             if (counters[i].id === currentCounter && counters[i].value > 0) {
 
                 counters[i].value--
+            }
+            if (counters[i].value === 0) {
+                counters = this.state.counters.filter(counter => counter.id !== currentCounter);
             }
         }
 
@@ -148,33 +140,15 @@ class App extends Component {
 
     handleReset = () => {
 
-        const counters = [...this.state.counters];
-        const shelf = [...this.state.shelf]
         const totals = [...this.state.totals];
 
         const cleanCounters = [];
         totals.totalitems = 0;
         totals.totalamount = '0.00'
 
-        for (var i = 0; i < counters.length; i++) {
-
-            shelf.push({
-                id: counters[i].id,
-                item: counters[i].item,
-                value: counters[i].value,
-                price: counters[i].price,
-            })
-        }
-
-
-
-        let sortable = shelf.sort((a, b) => {
-            return a['id'] > b['id']
-        });
         this.setState({
             counters: cleanCounters,
             totals: totals,
-            shelf: sortable
         });
 
     }
@@ -182,23 +156,38 @@ class App extends Component {
     handleAdd = (item) => {
 
         let shoppingList = [...this.state.counters];
-        let totals = [...this.state.totals]
+        let totals = [...this.state.totals];
+        let currentBasket = shoppingList.map(a => a.id);
         let itemId = item.id;
-        let shelf = this.state.shelf.filter(item => item.id !== itemId);
+        // let shelf = this.state.shelf.filter(item => item.id !== itemId);
         console.log('toadd', item)
-        console.log('shoppingList', shoppingList)
-        shoppingList.push({
-            id: item.id,
-            item: item.item,
-            value: item.value,
-            price: item.price,
-        })
+        console.log('shoppingList', shoppingList);
+        console.log('currentBasket', currentBasket);
+
+
+        if (currentBasket.indexOf(itemId) === -1) {
+            shoppingList.push({
+                id: item.id,
+                item: item.item,
+                value: item.value,
+                price: item.price,
+            })
+        } else {
+
+            let addToExisitingItem = shoppingList.find(x => x.id === itemId);
+            addToExisitingItem.value = addToExisitingItem.value + 1
+            // let restOfBasket = shoppingList.filter(x => x.id !== itemId);
+            console.log(addToExisitingItem)
+        }
+
+
+
 
         totals.totalitems = shoppingList.reduce(getTotalItems, 0)
         totals.totalamount = shoppingList.reduce(getTotalAmount, 0).toFixed(2)
         this.setState({
             counters: shoppingList,
-            shelf: shelf,
+            //shelf: shelf,
             totals: totals
         });
 

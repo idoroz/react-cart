@@ -1,11 +1,10 @@
 import React, { Component } from 'react';
-import { Row, Card, Col } from 'react-materialize'
 
 class totalBox extends Component {
 	
 	render() {
 
-		console.log(this.props.totals.totalitems)
+
 		
 if(this.props.totals.totalitems !== 0) {
 

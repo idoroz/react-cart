@@ -1,23 +1,36 @@
 .counterWrapper {
-text-align: center;
+	text-align: center
 }
 
-.subtotalRow{
-		border-top: 1px solid grey;
+.subtotalRow {
+	border-top: 1px solid grey
 }
+
 .totalsRow {
-
 	font-size: 1.2em;
-	font-weight: 700;
-}
-
-.shelfItem{
-	cursor: pointer;
-	height: 100px;
-	  background-image: linear-gradient(-90deg, lightblue, lightgreen);
+	font-weight: 700
 }
 
 .theShelf {
-	overflow-y: scroll;
-	height:600px;
+
+	/*overflow-y: scroll;
+	height: 600px*/
+	text-align: center;
+}
+
+.shelfItem {
+	cursor: pointer;
+	height: 100px;
+	width: 100px;
+	background-image: linear-gradient(-90deg, lightblue, lightgreen);
+	border: 1px solid black;
+	border-radius: 5px;
+	display: inline-block;
+}
+
+.itemDetails {
+	height: 50px;
+	width: 50px;
+	border: 1px solid black;
+	border-radius: 5px;
 }
